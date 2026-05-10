@@ -26,17 +26,23 @@ class ServeNode(Node):
 
 def main():
     rclpy.init()
-    
-    cmd = input(">> ")
-    x, y, z, dur = map(float, cmd.split(','))
-
     node = ServeNode()
-    
 
-    node.send(linear_x=x, linear_y=y, linear_z=z, duration=dur)
+    print("x, y, z, duration\n")
+    
+    try:
+        while True:
+            cmd = input(">> ")
+            x, y, z, dur = map(float, cmd.split(','))
+
+            node.send(linear_x=x, linear_y=y, linear_z=z, duration=dur)
+
+    except KeyboardInterrupt:
+        pass
 
     node.destroy_node()
     rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()
